@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "projects": {
+    "api": "apps/api",
+    "api-interfaces": "libs/api-interfaces",
+    "sigma-memer": "apps/sigma-memer",
+    "sigma-memer-e2e": "apps/sigma-memer-e2e"
+  }
+}

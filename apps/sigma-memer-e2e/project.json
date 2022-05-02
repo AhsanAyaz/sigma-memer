@@ -1,0 +1,28 @@
+{
+  "root": "apps/sigma-memer-e2e",
+  "sourceRoot": "apps/sigma-memer-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/sigma-memer-e2e/cypress.json",
+        "devServerTarget": "sigma-memer:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "sigma-memer:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/sigma-memer-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["sigma-memer"]
+}

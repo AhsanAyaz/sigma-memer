@@ -1,0 +1,97 @@
+{
+  "projectType": "application",
+  "root": "apps/sigma-memer",
+  "sourceRoot": "apps/sigma-memer/src",
+  "prefix": "sigma-memer",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/sigma-memer",
+        "index": "apps/sigma-memer/src/index.html",
+        "main": "apps/sigma-memer/src/main.ts",
+        "polyfills": "apps/sigma-memer/src/polyfills.ts",
+        "tsConfig": "apps/sigma-memer/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/sigma-memer/src/favicon.ico",
+          "apps/sigma-memer/src/assets"
+        ],
+        "styles": ["apps/sigma-memer/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/sigma-memer/src/environments/environment.ts",
+              "with": "apps/sigma-memer/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "sigma-memer:build:production"
+        },
+        "development": {
+          "browserTarget": "sigma-memer:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/sigma-memer/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "sigma-memer:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/sigma-memer/**/*.ts",
+          "apps/sigma-memer/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/sigma-memer"],
+      "options": {
+        "jestConfig": "apps/sigma-memer/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
