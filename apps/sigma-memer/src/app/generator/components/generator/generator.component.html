@@ -1,0 +1,87 @@
+<div class="h-full leading-normal tracking-normal text-indigo-400">
+  <div class="p-6 container mx-auto">
+    <div class="w-full flex items-center justify-between">
+      <a class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
+        Sigma<span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">memer</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="px-6 container md:pt-224 mx-auto flex flex-wrap flex-col md:flex-row items-start">
+    <div class="flex flex-col w-full pt-10 xl:pt-32  xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
+      <h1 class="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
+        Your
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
+          One Stop Shop
+        </span>
+        to generate memes
+      </h1>
+      <p class="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
+        Generating memes is hard, we know. And we'll make it easier.
+      </p>
+
+    </div>
+
+    <div class="w-full xl:w-3/5 p-12 overflow-hidden">
+      <div class="bg-gray-900 opacity-75 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 mx-auto w-full md:w-4/5 transform -rotate-1 transition hover:scale-105 duration-300 ease-in-out hover:rotate-1">
+        <form (ngSubmit)="generateMeme()" [formGroup]="generatorForm" class="flex flex-col gap-4">
+          <div class="relative">
+            <label class="block text-blue-300 py-2 font-bold mb-2" for="topText"> Top Text </label>
+            <input formControlName="topText" placeholder="Write top text here" class="w-full p-3 mt-1 text-sm border-2 text-gray-700  border-gray-200 rounded" id="topText" type="text" />
+          </div>
+          <div class="relative">
+            <label class="block text-blue-300 py-2 font-bold mb-2" for="searchInput"> Pick Meme </label>
+            <input formControlName="memeSearch" placeholder="Search" class="w-full p-3 mt-1 text-sm border-2 text-gray-700  border-gray-200 rounded" id="searchInput" type="search" >
+          </div>
+
+          <!-- Selected Meme -->
+          <ng-container *ngIf="selectedMeme; else memesChoices">
+            <div class="flex bg-white rounded-md p-12 justify-center items-center relative">
+              <fa-icon (click)="setSelectedMeme(null);" [icon]="faTimes" size="2x" class="absolute top-4 right-4 cursor-pointer hover:opacity-50"></fa-icon>
+              <img src="http://apimeme.com/meme?meme={{selectedMeme}}&top=&bottom=" />
+            </div>
+          </ng-container>
+          <div class="relative">
+            <label class="block text-blue-300 py-2 font-bold mb-2" for="bottomText"> Bottom Text </label>
+            <input formControlName="bottomText" placeholder="Write bottom text here" class="w-full p-3 mt-1 text-sm border-2 text-gray-700  border-gray-200 rounded" id="bottomText" type="text" />
+          </div>
+          <button [disabled]="!selectedMeme || isGenerating" type="submit" class="px-3 py-2 rounded-sm shadow-lg bg-indigo-600 hover:bg-indigo-700 text-white disabled:bg-gray-400 disabled:cursor-not-allowed">
+            <!-- Loader or Text based on state -->
+            <span *ngIf="isGenerating">
+              <fa-icon size="lg" class="inline-block animate-spin w-5 h-5" [icon]="faSpinner"></fa-icon>
+            </span>
+            <span *ngIf="!isGenerating">
+              Generate
+            </span>
+
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Meme choices Grid -->
+<ng-template #memesChoices>
+  <div class="memes flex flex-wrap gap-4 justify-center items-center">
+    <div (click)="setSelectedMeme(meme)" *ngFor="let meme of memes" class="memes__meme cursor-pointer shadow-lg bg-white p-4 rounded-md hover:-translate-y-2 ease-in-out duration-300">
+      <img src="http://apimeme.com/thumbnail?name={{meme}}" />
+    </div>
+  </div>
+</ng-template>
+
+
+<!--Toast-->
+<div (downloaded)="clearDownloadUrl()" *ngIf="downloadUrl" sigmaMemerDownloadFile [fileUrl]="downloadUrl" [fileName]="selectedMeme" class="alert-toast fixed top-0 right-0 m-8 w-5/6 md:w-full max-w-sm">
+  <label class="close text-center cursor-pointer flex justify-between w-full p-2 py-6 bg-green-500 rounded shadow-lg text-white" title="close" for="footertoast">
+    <span>Click to download your meme</span>
+    <fa-icon (click)="closeDownloadToast($event)" class="ml-2" [icon]="faTimes"></fa-icon>
+  </label>
+</div>
+
+
+<div *ngIf="generationError" class="alert-toast fixed top-0 right-0 m-8 w-5/6 md:w-full max-w-sm">
+  <label class="close text-center cursor-pointer flex justify-between w-full p-2 bg-red-500 rounded shadow-lg text-white" title="close">
+    <span>{{generationError}}</span>
+    <fa-icon (click)="generationError = ''" class="ml-2" [icon]="faTimes"></fa-icon>
+  </label>
+</div>
