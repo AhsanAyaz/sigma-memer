@@ -1,3 +1,5 @@
-export interface Message {
-  message: string;
+export interface MemeToGenerate {
+  top?: string;
+  bottom?: string;
+  meme: string;
 }
