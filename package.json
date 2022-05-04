@@ -4,11 +4,11 @@
   "license": "MIT",
   "scripts": {
     "ng": "nx",
-    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
+    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main && nx run sigma-memer:build && nx run api:build",
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "start:prod": "nx run sigma-memer:build && nx run api:build && node ./dist/apps/api/main.js"
+    "start:prod": "node ./dist/apps/api/main.js"
   },
   "private": true,
   "dependencies": {
