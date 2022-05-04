@@ -9,6 +9,8 @@ import {
   switchMap,
   throwError,
 } from 'rxjs';
+import { THROTTLE_CONFIG } from '@sigma-memer/api-interfaces';
+
 @Component({
   selector: 'sigma-memer-generator',
   templateUrl: './generator.component.html',
@@ -22,6 +24,7 @@ export class GeneratorComponent implements OnInit {
   faSpinner = faSpinner;
   generatorForm: FormGroup;
   downloadUrl = '';
+  throttleConfig = THROTTLE_CONFIG;
   generationError = '';
   constructor(
     private genService: GeneratorService,
@@ -84,8 +87,7 @@ export class GeneratorComponent implements OnInit {
           this.isGenerating = false;
           switch (err.status) {
             case 429:
-              this.generationError =
-                'Too many requests. You can only generate 3 memes in a span of 5 minutes';
+              this.generationError = `Too many requests. You can only generate ${this.throttleConfig.limit} memes in a span of ${this.throttleConfig.minutes} minutes`;
               break;
 
             default:
