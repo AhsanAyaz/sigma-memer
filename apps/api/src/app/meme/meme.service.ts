@@ -61,7 +61,14 @@ export class MemeService {
 
   search(query: string, memesList: string[]) {
     const regex = new RegExp(query, 'i');
-    return memesList.filter((meme) => regex.test(meme)).slice(0, 10);
+    return memesList
+      .filter((meme) => {
+        if (query === '' && meme.toLowerCase().includes('finger')) {
+          return false;
+        }
+        return regex.test(meme);
+      })
+      .slice(0, 10);
   }
 
   generateMemesFile() {
