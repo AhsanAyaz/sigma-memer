@@ -8,7 +8,7 @@
   </div>
 
   <div class="px-6 container md:pt-224 mx-auto flex flex-wrap flex-col md:flex-row items-start">
-    <div class="flex flex-col w-full pt-1 md:pt-8 xl:pt-32  xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
+    <div class="flex flex-col w-full pt-1 sm:pt-4 md:pt-8 xl:pt-32 xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
       <h1 class="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
         Your
         <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
@@ -16,13 +16,13 @@
         </span>
         to generate memes
       </h1>
-      <p class="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
+      <p class="leading-normal text-base md:text-2xl mb-10 text-center md:text-left mb-14">
         Generating memes is hard, we know. And we'll make it easier.
       </p>
 
     </div>
 
-    <div class="w-full xl:w-3/5 p-12 overflow-hidden">
+    <div class="w-full p-2 xl:w-3/5 sm:p-4 lg:p-12 overflow">
       <div class="bg-gray-900 opacity-75 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 mx-auto w-full md:w-4/5 transform -rotate-1 transition hover:scale-105 duration-300 ease-in-out hover:rotate-1">
         <form (ngSubmit)="generateMeme()" [formGroup]="generatorForm" class="flex flex-col gap-4">
           <div class="relative">
